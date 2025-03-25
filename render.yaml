@@ -31,10 +31,7 @@ services:
     startCommand: cd frontend && npm start
     envVars:
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          name: ai-call-analyzer-backend
-          type: web
-          property: url
+        value: "https://ai-call-analyzer-backend.onrender.com"
       - key: NODE_ENV
         value: "production"
 
