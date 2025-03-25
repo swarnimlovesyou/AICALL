@@ -3,7 +3,7 @@ services:
   - type: web
     name: ai-call-analyzer-backend
     env: python
-    region: singapore  # Choose a region close to your users
+    plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
     startCommand: gunicorn call_analyzer.wsgi:application
     envVars:
@@ -21,12 +21,11 @@ services:
           property: connectionString
       - key: ALLOWED_HOSTS
         value: ".onrender.com"
-
   # Frontend Service
   - type: web
     name: ai-call-analyzer-frontend
     env: node
-    region: singapore  # Choose a region close to your users
+    plan: free
     buildCommand: cd frontend && npm install && npm run build
     startCommand: cd frontend && npm start
     envVars:
@@ -34,9 +33,7 @@ services:
         value: "https://ai-call-analyzer-backend.onrender.com"
       - key: NODE_ENV
         value: "production"
-
 # Database
 databases:
   - name: ai-call-analyzer-db
     plan: free
-    region: singapore  # Choose a region close to your users
