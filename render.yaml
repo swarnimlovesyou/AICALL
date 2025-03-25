@@ -4,6 +4,7 @@ services:
     name: ai-call-analyzer-backend
     env: python
     plan: free
+    rootDir: ai-call-analyzer
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
     startCommand: gunicorn call_analyzer.wsgi:application
     envVars:
@@ -26,8 +27,9 @@ services:
     name: ai-call-analyzer-frontend
     env: node
     plan: free
-    buildCommand: cd frontend && npm install && npm run build
-    startCommand: cd frontend && npm start
+    rootDir: ai-call-analyzer/frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: NEXT_PUBLIC_API_URL
         value: "https://ai-call-analyzer-backend.onrender.com"
