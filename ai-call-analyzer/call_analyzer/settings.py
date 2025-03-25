@@ -69,22 +69,27 @@ MIDDLEWARE = [
 ]
 
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = True  # For development only, configure more specifically for production
-# Alternatively, specify allowed origins:
-# CORS_ALLOWED_ORIGINS = [
-#     "https://yourdomain.com",
-#     "https://www.yourdomain.com",
-# ]
-
-# Allow credentials (cookies, auth headers)
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# CSRF Configuration
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 
 ROOT_URLCONF = 'call_analyzer.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'frontend/.next'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

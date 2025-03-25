@@ -32,10 +32,18 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {
         'document_root': settings.MEDIA_ROOT,
     }),
+    # Catch-all route for frontend
+    re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
 ]
 
-# In production, serve the frontend
-if not settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^(?:.*)/?$', TemplateView.as_view(template_name="index.html")),
-    ]
+# Add debug toolbar if DEBUG is True
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
+# Add static file serving in debug mode
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
