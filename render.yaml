@@ -11,7 +11,7 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
-        value: "False"
+        value: "false"
       - key: ASSEMBLY_AI_API_KEY
         sync: false
       - key: GOOGLE_API_KEY
@@ -21,7 +21,11 @@ services:
           name: ai-call-analyzer-db
           property: connectionString
       - key: ALLOWED_HOSTS
-        value: ".onrender.com"
+        value: ".onrender.com,render.com"
+      - key: PYTHONUNBUFFERED
+        value: "true"
+      - key: DJANGO_SETTINGS_MODULE
+        value: "call_analyzer.settings"
   # Frontend Service
   - type: web
     name: ai-call-analyzer-frontend
